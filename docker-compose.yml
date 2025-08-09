@@ -1,0 +1,39 @@
+# docker-compose.yml - Ejemplo para el TPO
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: tpo-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    volumes:
+      - mongodb_data:/data/db
+
+  neo4j:
+    image: neo4j:5.15
+    container_name: tpo-neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/password123
+    volumes:
+      - neo4j_data:/data
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: tpo-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mongodb_data:
+  neo4j_data:
+  redis_data:
+ 
